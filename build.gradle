@@ -1,18 +1,96 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.32'
-    id 'maven-publish'
 }
+
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+task sourcesJar(type: Jar) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+    archiveClassifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+def sonatypeUsername = properties.getProperty('sonatypeUsername')
+def sonatypePassword = properties.getProperty('sonatypePassword')
+
+group = 'com.zachary-moore'
+version = '0.0.1-SNAPSHOT'
+
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 publishing {
     publications {
-        maven(MavenPublication) {
-            groupId = 'com.zachary_moore.huekontrollr'
-            artifactId = 'huekontrollr'
-            version = '0.0.1'
+        mavenJava(MavenPublication) {
+            pom {
+                name = 'huekontrollr'
+                description = 'Kotlin wrapper around the Hue api to provide convenience functions and data objects'
+                url = 'https://github.com/zsmoore/huekontrollr'
+
+                organization {
+                    name = 'com.zachary-moore'
+                    url = 'https://www.zachary-moore.com'
+                }
+
+                issueManagement {
+                    system = 'GitHub'
+                    url = 'https://github.com/zsmoore/huekontrollr/issues'
+                }
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'https://github.com/zsmoore/huekontrollr/blob/main/LICENSE'
+                        distribution = 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'zsmoore'
+                        name = 'Zachary Moore'
+                        email = 'zsmoore@zachary-moore.com'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/zsmoore/huekontrollr.git'
+                    developerConnection = 'scm:git:ssh://git@github.com:zsmoore/huekontrollr.git'
+                    url = 'https://github.com/zsmoore/huekontrollr'
+                }
+            }
 
             from components.kotlin
+
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
+
+    repositories {
+        maven {
+            url 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+            credentials {
+                username = sonatypeUsername
+                password = sonatypePassword
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+tasks.withType(Sign) {
+    onlyIf { isReleaseVersion }
 }
 
 repositories {
