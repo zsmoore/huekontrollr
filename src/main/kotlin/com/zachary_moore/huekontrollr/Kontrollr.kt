@@ -1,7 +1,7 @@
 package com.zachary_moore.huekontrollr
 
-import com.zachary_moore.huekontrollr.internal.BaseRequest
 import com.zachary_moore.huekontrollr.api.Lights
+import com.zachary_moore.huekontrollr.internal.BaseRequest
 import com.zachary_moore.huekontrollr.internal.Login
 
 class Kontrollr private constructor(
@@ -30,6 +30,7 @@ class Kontrollr private constructor(
             }
 
         }
+
         fun createWithAutoIpAndUsername(
             applicationName: String,
             deviceName: String,

@@ -15,8 +15,8 @@ internal class BaseRequest(
     private fun appendToApiUrl(
         routeToAdd: String
     ): BaseRequest = this.apply {
-            currentApiUrl += "/$routeToAdd"
-        }
+        currentApiUrl += "/$routeToAdd"
+    }
 
     internal fun getSubApiRequest(
         subApiRoute: String
@@ -37,5 +37,5 @@ internal class SubApiRequest(
 
     fun getRequest(
         subRoute: String
-    ) : Request = Request { subRequest.getUrl() + "/$subRoute" }
+    ): Request = Request { subRequest.getUrl() + "/$subRoute" }
 }

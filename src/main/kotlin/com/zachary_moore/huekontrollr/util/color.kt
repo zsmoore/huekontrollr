@@ -7,7 +7,7 @@ fun getFromRGB(
     r: Int,
     g: Int,
     b: Int
-) : XY {
+): XY {
     require(r in 0..255)
     require(g in 0..255)
     require(b in 0..255)
@@ -34,7 +34,7 @@ fun getFromRGB(
         y = 0f
     }
 
-    return XY(x,y)
+    return XY(x, y)
 }
 
 private fun gammaCorrect(

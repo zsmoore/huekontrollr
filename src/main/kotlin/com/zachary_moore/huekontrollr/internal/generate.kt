@@ -177,7 +177,7 @@ internal class DeviceDeserializer : DataGenerator<Device> {
     }
 }
 
-internal class UserCreateBodyDeserializer: DataGenerator<UserCreateBody> {
+internal class UserCreateBodyDeserializer : DataGenerator<UserCreateBody> {
     override fun fromJsonObject(jsonObject: JSONObject) = UserCreateBody(
         jsonObject.getString("devicetype").split("#")[0],
         jsonObject.getString("devicetype").split("#")[1]
@@ -192,7 +192,7 @@ internal class UserCreateBodyDeserializer: DataGenerator<UserCreateBody> {
     }
 }
 
-internal class UserCreateResponseDeserializer: DataGenerator<UserCreateResponse> {
+internal class UserCreateResponseDeserializer : DataGenerator<UserCreateResponse> {
     override fun fromJsonArray(jsonArray: JSONArray): UserCreateResponse? {
         return try {
             jsonArray.getJSONObject(0)
