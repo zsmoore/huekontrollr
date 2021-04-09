@@ -22,7 +22,7 @@ def sonatypeUsername = properties.getProperty('sonatypeUsername')
 def sonatypePassword = properties.getProperty('sonatypePassword')
 
 group = 'com.zachary-moore'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
@@ -99,6 +99,7 @@ repositories {
 }
 
 java {
+    withJavadocJar()
     withSourcesJar()
 }
 
