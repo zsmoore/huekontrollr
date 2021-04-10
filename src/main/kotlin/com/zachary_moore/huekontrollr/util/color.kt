@@ -3,6 +3,11 @@ package com.zachary_moore.huekontrollr.util
 import com.zachary_moore.huekontrollr.data.light.XY
 import kotlin.math.pow
 
+/**
+ * Get a HUE representation of color given rgb values.
+ * See - [Conversion documentation](https://developers.meethue.com/develop/application-design-guidance/color-conversion-formulas-rgb-to-xy-and-back/)
+ * for more information.
+ */
 fun getFromRGB(
     r: Int,
     g: Int,
