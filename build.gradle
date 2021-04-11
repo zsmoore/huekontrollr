@@ -15,12 +15,6 @@ task javadocJar(type: Jar) {
     from javadoc.destinationDir
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-def sonatypeUsername = properties.getProperty('sonatypeUsername')
-def sonatypePassword = properties.getProperty('sonatypePassword')
-
 group = 'com.zachary-moore'
 version = '0.0.1'
 
